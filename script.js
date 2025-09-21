@@ -29,7 +29,7 @@ function handleOperation(operator) {
     } else {
         secondNumber = Number(currentInput);
 
-        let result = Math.round(operate(currentOperator, firstNumber, secondNumber) * 1000) / 1000;
+        let result = parseFloat(operate(currentOperator, firstNumber, secondNumber).toFixed(10));
         display.textContent = result;
 
         firstNumber = result;
