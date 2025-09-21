@@ -14,7 +14,7 @@ numberBtns.forEach(button => {
 
 operatorBtns.forEach(button => {
     button.addEventListener('click', () => handleOperation(button.value));
-})
+});
 
 clearBtn.addEventListener('click', () => clearCalculator());
 
@@ -40,7 +40,7 @@ function handleOperation(operator) {
         }
         secondNumber = Number(currentInput);
 
-        let result = parseFloat(operate(currentOperator, firstNumber, secondNumber).toFixed(10));
+        let result = operate(currentOperator, firstNumber, secondNumber);
         display.textContent = result;
 
         firstNumber = result;
@@ -81,18 +81,33 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        return "Division by zero? That's impossible!";
+    }
+    
     return a / b;
 }
 
 function operate(operator, a, b) {
+    let result;
     switch (operator) {
         case '+':
-            return add(a, b);
+            result = add(a, b);
+            break;
         case '-':
-            return subtract(a, b);
+            result = subtract(a, b);
+            break;
         case '*':
-            return multiply(a, b);
+            result = multiply(a, b);
+            break;
         case '/':
-            return divide(a, b);
+            result = divide(a, b);
+            break;
     }
+
+    if (typeof result === "string") {
+        return result;
+    }
+
+    return parseFloat(result.toFixed(10));
 }
