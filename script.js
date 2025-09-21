@@ -1,11 +1,12 @@
-let firstNumber;
-let secondNumber;
-let currentOperator;
+let firstNumber = null;
+let secondNumber = null;
+let currentOperator = null;
 let currentInput = "";
 
 const display = document.querySelector("#display");
 const numberBtns = document.querySelectorAll(".number-btn");
-const operatorBtns = document.querySelectorAll(".operator-btn")
+const operatorBtns = document.querySelectorAll(".operator-btn");
+const clearBtn = document.querySelector(".clear-btn");
 
 numberBtns.forEach(button => {
     button.addEventListener('click', () => appendValue(button.value));
@@ -14,6 +15,8 @@ numberBtns.forEach(button => {
 operatorBtns.forEach(button => {
     button.addEventListener('click', () => handleOperation(button.value));
 })
+
+clearBtn.addEventListener('click', () => clearCalculator());
 
 function appendValue(number) {
     currentInput += number;
@@ -55,6 +58,14 @@ function handleOperation(operator) {
     console.log("secondNumber: ", secondNumber);
     console.log("currentOperator: ", currentOperator);
     console.log("currentInput:", currentInput);
+}
+
+function clearCalculator() {
+    firstNumber = null;
+    secondNumber = null;
+    currentOperator = null;
+    currentInput = "";
+    display.textContent = "";
 }
 
 function add(a, b) {
