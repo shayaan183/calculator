@@ -27,12 +27,26 @@ function handleOperation(operator) {
         currentInput = "";
         display.textContent = "";
     } else {
+        secondNumber = Number(currentInput);
+
+        let result = Math.round(operate(currentOperator, firstNumber, secondNumber) * 1000) / 1000;
+        display.textContent = result;
+
+        firstNumber = result;
+        secondNumber = null;
+        currentInput = "";
+
         if (operator == "=") {
-            secondNumber = Number(currentInput);
-            let finalValue = operate(currentOperator, firstNumber, secondNumber);
-            display.textContent = finalValue;
+            currentOperator = null;
+        } else {
+            currentOperator = operator;
         }
     }
+
+    console.log("firstNumber: ", firstNumber);
+    console.log("secondNumber: ", secondNumber);
+    console.log("currentOperator: ", currentOperator);
+    console.log("currentInput:", currentInput);
 }
 
 function add(a, b) {
