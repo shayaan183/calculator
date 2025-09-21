@@ -22,11 +22,19 @@ function appendValue(number) {
 
 function handleOperation(operator) {
     if (currentOperator == null) {
+        if (currentInput === "") return;
+
         firstNumber = Number(currentInput);
         currentOperator = operator;
         currentInput = "";
         display.textContent = "";
     } else {
+        if (currentInput === "") {
+            if (operator != "=") {
+                currentOperator = operator;
+            }
+            return;
+        }
         secondNumber = Number(currentInput);
 
         let result = parseFloat(operate(currentOperator, firstNumber, secondNumber).toFixed(10));
@@ -36,7 +44,7 @@ function handleOperation(operator) {
         secondNumber = null;
         currentInput = "";
 
-        if (operator == "=") {
+        if (operator === "=") {
             currentOperator = null;
         } else {
             currentOperator = operator;
