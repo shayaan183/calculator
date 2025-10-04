@@ -22,10 +22,13 @@ operatorBtns.forEach(button => {
 clearBtn.addEventListener('click', () => clearCalculator());
 
 function appendValue(number) {
+    if (number === "." && currentInput.includes(".")) return;
+    
     if (calculationFinished) {
         clearCalculator();
         calculationFinished = false;
     }
+    
     currentInput += number;
     currentDisplay.textContent = currentInput;
 }
