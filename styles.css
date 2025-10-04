@@ -53,7 +53,6 @@ button {
     height: 80px;
 }
 
-.clear-btn {
-    flex-basis: 80%;
-    width: 300px;
+.delete-btn, .clear-btn {
+    flex-basis: 43%;
 }

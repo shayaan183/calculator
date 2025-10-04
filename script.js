@@ -10,18 +10,20 @@ const currentDisplay = document.querySelector("#current-display");
 const numberBtns = document.querySelectorAll(".number-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
 const clearBtn = document.querySelector(".clear-btn");
+const deleteBtn = document.querySelector(".delete-btn");
 
 numberBtns.forEach(button => {
-    button.addEventListener('click', () => appendValue(button.value));
+    button.addEventListener('click', () => appendNumber(button.value));
 });
 
 operatorBtns.forEach(button => {
     button.addEventListener('click', () => handleOperation(button.value));
 });
 
+deleteBtn.addEventListener('click', () => deleteNumber());
 clearBtn.addEventListener('click', () => clearCalculator());
 
-function appendValue(number) {
+function appendNumber(number) {
     if (number === "." && currentInput.includes(".")) return;
     
     if (calculationFinished) {
@@ -84,6 +86,11 @@ function handleOperation(operator) {
     console.log("secondNumber: ", secondNumber);
     console.log("currentOperator: ", currentOperator);
     console.log("currentInput:", currentInput);
+}
+
+function deleteNumber() {
+    currentInput = currentInput.slice(0, -1);
+    currentDisplay.textContent = currentInput;
 }
 
 function clearCalculator() {
