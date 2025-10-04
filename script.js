@@ -23,6 +23,8 @@ operatorBtns.forEach(button => {
 deleteBtn.addEventListener('click', () => deleteNumber());
 clearBtn.addEventListener('click', () => clearCalculator());
 
+document.body.addEventListener('keydown', (e) => enterKeyboardInputs(e.key));
+
 function appendNumber(number) {
     if (number === "." && currentInput.includes(".")) return;
     
@@ -39,7 +41,7 @@ function handleOperation(operator) {
     if (isError) return;
 
     if (currentOperator == null) {
-        if (currentInput === "") return;
+        if (currentInput === "" || operator === "=") return;
 
         firstNumber = Number(currentInput);
         currentOperator = operator;
@@ -101,6 +103,28 @@ function clearCalculator() {
     currentDisplay.textContent = "";
     previousDisplay.textContent = "";
     isError = false;
+}
+
+function enterKeyboardInputs(key) {
+    if (!isNaN(key) || key === ".") {
+        appendNumber(key);
+    }
+
+    if (key === "+" || key === "-" || key === "*" || key === "/") {
+        handleOperation(key);
+    }
+
+    if (key === "=" || key === "Enter") {
+        handleOperation("=");
+    }
+
+    if (key === "Backspace") {
+        deleteNumber();
+    }
+
+    if (key === "c") {
+        clearCalculator();
+    }
 }
 
 function add(a, b) {
