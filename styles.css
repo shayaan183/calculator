@@ -26,8 +26,16 @@ body {
     border: solid 2px gray;
     padding: 10px;
     margin: 5px;
-    height: 50px;
+    height: 100px;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inner-display {
+    width: 100%;
+    padding: 5px;
+    text-align: right;
 }
 
 .buttons {

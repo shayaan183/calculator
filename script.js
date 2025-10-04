@@ -2,8 +2,11 @@ let firstNumber = null;
 let secondNumber = null;
 let currentOperator = null;
 let currentInput = "";
+let isError = false;
+let calculationFinished = false;
 
-const display = document.querySelector("#display");
+const previousDisplay = document.querySelector("#previous-display");
+const currentDisplay = document.querySelector("#current-display");
 const numberBtns = document.querySelectorAll(".number-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
 const clearBtn = document.querySelector(".clear-btn");
@@ -19,39 +22,59 @@ operatorBtns.forEach(button => {
 clearBtn.addEventListener('click', () => clearCalculator());
 
 function appendValue(number) {
+    if (calculationFinished) {
+        clearCalculator();
+        calculationFinished = false;
+    }
     currentInput += number;
-    display.textContent = currentInput;
+    currentDisplay.textContent = currentInput;
 }
 
 function handleOperation(operator) {
+    if (isError) return;
+
     if (currentOperator == null) {
         if (currentInput === "") return;
 
         firstNumber = Number(currentInput);
         currentOperator = operator;
         currentInput = "";
-        display.textContent = "";
+        previousDisplay.innerHTML = `${firstNumber} ${getOperatorSymbol(currentOperator)}`;
+        currentDisplay.textContent = firstNumber;
     } else {
         if (currentInput === "") {
             if (operator != "=") {
                 currentOperator = operator;
+                previousDisplay.innerHTML = `${firstNumber} ${getOperatorSymbol(currentOperator)}`;
             }
             return;
         }
         secondNumber = Number(currentInput);
 
         let result = operate(currentOperator, firstNumber, secondNumber);
-        display.textContent = result;
+
+        if (typeof result === "string") {
+            previousDisplay.innerHTML = `${firstNumber} ${getOperatorSymbol(currentOperator)} ${secondNumber} =`;
+            currentDisplay.textContent = result;
+            firstNumber = null;
+            secondNumber = null;
+            currentInput = "";
+            isError = true;
+            return;
+        } else if (operator === "=") {
+            previousDisplay.innerHTML = `${firstNumber} ${getOperatorSymbol(currentOperator)} ${secondNumber} =`;
+            currentDisplay.textContent = result;
+            currentOperator = null;
+            calculationFinished = true;
+        } else {
+            currentOperator = operator;
+            previousDisplay.innerHTML = `${result} ${getOperatorSymbol(currentOperator)}`;
+            currentDisplay.textContent = result;
+        }
 
         firstNumber = result;
         secondNumber = null;
         currentInput = "";
-
-        if (operator === "=") {
-            currentOperator = null;
-        } else {
-            currentOperator = operator;
-        }
     }
 
     console.log("firstNumber: ", firstNumber);
@@ -65,7 +88,9 @@ function clearCalculator() {
     secondNumber = null;
     currentOperator = null;
     currentInput = "";
-    display.textContent = "";
+    currentDisplay.textContent = "";
+    previousDisplay.textContent = "";
+    isError = false;
 }
 
 function add(a, b) {
@@ -110,4 +135,17 @@ function operate(operator, a, b) {
     }
 
     return parseFloat(result.toFixed(10));
+}
+
+function getOperatorSymbol(operator) {
+    switch (operator) {
+        case '+':
+            return "&plus;";
+        case '-':
+            return "&minus;";
+        case '*':
+            return "&times;";
+        case '/':
+            return "&divide;";
+    }
 }
