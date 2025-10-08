@@ -13,17 +13,17 @@ const clearBtn = document.querySelector(".clear-btn");
 const deleteBtn = document.querySelector(".delete-btn");
 
 numberBtns.forEach(button => {
-    button.addEventListener('click', () => appendNumber(button.value));
+    button.addEventListener("click", () => appendNumber(button.value));
 });
 
 operatorBtns.forEach(button => {
-    button.addEventListener('click', () => handleOperation(button.value));
+    button.addEventListener("click", () => handleOperation(button.value));
 });
 
-deleteBtn.addEventListener('click', () => deleteNumber());
-clearBtn.addEventListener('click', () => clearCalculator());
+deleteBtn.addEventListener("click", () => deleteNumber());
+clearBtn.addEventListener("click", () => clearCalculator());
 
-document.body.addEventListener('keydown', (e) => enterKeyboardInputs(e.key));
+document.body.addEventListener("keydown", (e) => handleKeyboardInputs(e.key));
 
 function appendNumber(number) {
     if (number === "." && currentInput.includes(".")) return;
@@ -105,24 +105,26 @@ function clearCalculator() {
     isError = false;
 }
 
-function enterKeyboardInputs(key) {
-    if (!isNaN(key) || key === ".") {
+function handleKeyboardInputs(key) {
+    let isNumberOrDecimal = (!isNaN(key) || key === ".");
+    let isOperator = (key === "+" || key === "-" || key === "*" || key === "/");
+    let isEquals = (key === "=" || key === "Enter");
+    let isDelete = (key === "Backspace" || key === "Delete");
+    let isClear = (key.toLowerCase() === "c" || key === "Escape");
+    
+    if (isError && isNumberOrDecimal) {
+        clearCalculator();
+    }
+
+    if (isNumberOrDecimal) {
         appendNumber(key);
-    }
-
-    if (key === "+" || key === "-" || key === "*" || key === "/") {
+    } else if (isOperator) { 
         handleOperation(key);
-    }
-
-    if (key === "=" || key === "Enter") {
+    } else if (isEquals) {
         handleOperation("=");
-    }
-
-    if (key === "Backspace") {
+    } else if (isDelete) {
         deleteNumber();
-    }
-
-    if (key === "c") {
+    } else if (isClear) {
         clearCalculator();
     }
 }
