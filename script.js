@@ -32,6 +32,10 @@ function appendNumber(number) {
         clearCalculator();
         calculationFinished = false;
     }
+
+    if (currentInput.length >= 15) return;
+
+    if (currentInput === "0" && number === "0") return;
     
     currentInput += number;
     currentDisplay.textContent = currentInput;
