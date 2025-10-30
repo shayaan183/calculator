@@ -6,36 +6,56 @@
 
 body {
     font-family: "Roboto", sans-serif;
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    gap: 50px;
+    gap: 60px;
+    background-color: #003153;
+    background-image: linear-gradient(315deg, #003153 0%, #1B1B1B 80%);
 }
 
 .calculator {
-    border: solid 2px black;
-    border-radius: 10px;
-    width: 400px;
-    padding: 10px;
+    background-color: #121212;
+    border: solid 2px #1e1e1e;
+    border-radius: 20px;
+    width: 350px;
+    padding: 15px;
+    box-shadow: 0 0 10px #121212;
 }
 
 .display {
     display: flex;
-    border: solid 2px gray;
-    padding: 10px;
-    margin: 5px;
-    height: 100px;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    min-height: 100px;
+    word-break: break-all;
 }
 
 .inner-display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     width: 100%;
     padding: 5px;
-    text-align: right;
+}
+
+#previous-display {
+    font-size: 14px;
+    min-height: 50px;
+}
+
+#current-display {
+    font-size: 28px;
+    font-weight: bold;
+    min-height: 50px;
 }
 
 .buttons {
@@ -43,16 +63,56 @@ body {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 10px;
     gap: 10px;
+    padding: 10px;
 }
 
 button {
     font-family: inherit;
     flex-basis: 20%;
-    height: 80px;
+    height: 70px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #2b2b2b;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #3a3a3a;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.operator-btn:hover, .operator-btn:active {
+    background-color: #00b3b3;
+}
+
+
+.operator-btn:hover[value="="], .operator-btn:active[value="="] {
+    background-color: #00b894;
 }
 
 .delete-btn, .clear-btn {
     flex-basis: 43%;
+}
+
+.delete-btn:hover, .delete-btn:active, .clear-btn:hover, .clear-btn:active {
+    background-color: #e74c3c;
+}
+
+footer {
+    text-align: center;
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
 }
