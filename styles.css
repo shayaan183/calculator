@@ -70,7 +70,7 @@ body {
 button {
     font-family: inherit;
     flex-basis: 20%;
-    height: 70px;
+    height: 65px;
     font-size: 16px;
     border: none;
     border-radius: 10px;
@@ -100,6 +100,7 @@ button:active {
 
 .delete-btn, .clear-btn {
     flex-basis: 43%;
+    font-weight: bolder; 
 }
 
 .delete-btn:hover, .delete-btn:active, .clear-btn:hover, .clear-btn:active {
