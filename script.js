@@ -12,6 +12,14 @@ const operatorBtns = document.querySelectorAll(".operator-btn");
 const clearBtn = document.querySelector(".clear-btn");
 const deleteBtn = document.querySelector(".delete-btn");
 
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+        }
+    })
+});
+
 numberBtns.forEach(button => {
     button.addEventListener("click", () => appendNumber(button.value));
 });
@@ -110,6 +118,8 @@ function clearCalculator() {
 }
 
 function handleKeyboardInputs(key) {
+    if (key === " ") return;
+
     let isNumberOrDecimal = (!isNaN(key) || key === ".");
     let isOperator = (key === "+" || key === "-" || key === "*" || key === "/");
     let isEquals = (key === "=" || key === "Enter");
